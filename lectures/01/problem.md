@@ -91,4 +91,15 @@ GitHub の自分の fork で、`lec01` → `main` の PR を作成します。**
 AIE_MODEL=gemini-3.5-flash uv run python -m app.ask "LoRAとは何ですか？"
 ```
 
+発展課題の計測には、同じ質問を複数のモデルに送る `--benchmark` を使えます。次の例ではモデル3つ・質問2つに合計6回 API を呼び出します（`AIE_MODEL` の設定には影響されません）。
+
+```bash
+uv run python -m app.ask --benchmark \
+  --models gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.8-flash \
+  "AIE2026の講座の宿題にある「3レベル」とは何ですか？" \
+  "LoRAとは何ですか？"
+```
+
+質問・モデルごとの応答時間と入力／出力トークン数、およびモデルごとの平均が表示されます。無料枠のレート制限はプロジェクトやモデルによって異なるため、実行前に [AI Studio のレート制限](https://aistudio.google.com/rate-limit) を確認してください。上限は時間とともに変わるので、固定値を前提にせず、実測と `429` エラーの有無を記録しましょう。
+
 temperature を変えるには、`generate_content` の `config` 引数を調べてみましょう。
