@@ -87,4 +87,18 @@ pyproject.toml / uv.lock  依存パッケージとその固定版
 AIE_MODEL=gemini-3.5-flash uv run python -m app.ask "LoRAとは何ですか？"
 ```
 
+複数の質問・モデルの応答時間と入出力トークン数を比べるには `--benchmark` を使います。
+モデル名を省略すると、`gemini-3.5-flash-lite`、`gemini-3.5-flash`、`gemini-3.8-flash` を比較します（`AIE_MODEL` の設定には影響されません）。
+質問も省略すると、講座固有の質問と LoRA の質問を各モデルに1回ずつ送り、合計6回 API を呼び出します。
+質問ごとの計測結果に加えて、モデルごとの平均も表示します。
+
+```bash
+uv run python -m app.ask --benchmark \
+  --models gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.8-flash \
+  "AIE2026の講座の宿題にある「3レベル」とは何ですか？" \
+  "LoRAとは何ですか？"
+```
+
+計測値は実行環境や API の混雑状況で変わります。無料枠の上限はモデルやプロジェクトの利用状況により異なるため、実行前に [AI Studio のレート制限](https://aistudio.google.com/rate-limit) を確認してください。
+
 無料枠には1分あたり・1日あたりのリクエスト上限があります。上限は [Gemini API のレート制限のページ](https://ai.google.dev/gemini-api/docs/rate-limits) で確認してください。
