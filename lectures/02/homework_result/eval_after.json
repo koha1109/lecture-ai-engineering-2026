@@ -1,0 +1,120 @@
+{
+  "summary": {
+    "label": "after",
+    "n": 12,
+    "format_rate": 0.9166666666666666,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "seconds": 54.5
+  },
+  "rows": [
+    {
+      "question": "LoRAとは何ですか？",
+      "raw": "{\"answer\": \"低ランクアサイン（Low-Rank Adaptation）の手法。学習する重みを増やしすぎず、モデルの重みを少しだけ増やし、その小さな変化をLoRAで表す。メモリと計算量に制限がある場合や、学習が不安定になる場合などに使う。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "QLoRAについて簡単に説明してください。",
+      "raw": "{\"answer\": \"重みを小さくして、学習データに根拠がある質問に答えて、その回答を重みに追加する手法。学習コストとメモリを大幅に削減できる。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "用語集の「ハルシネーション」とは何ですか？",
+      "raw": "{\"answer\": \"学習データに根拠がない質問や、知識を誤って出力する現象。LLMは入力と出力の間に大きな誤差があるため、入力に根拠がない質問には出力を答えてしまう。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "MCP（Model Context Protocol）とは？",
+      "raw": "{\"answer\": \"MCP（Model Context Protocol）は、モデルと外部のツールやデータソースを接続するための標準化されたプロトコル。MCPサーバーは、MCPクライアントが指定したツールやデータソースをモデルに渡す。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "モデル全体ではなく、小さな追加パラメータだけを学習する手法の総称は何ですか？",
+      "raw": "{\"answer\": \"モデルの出力をより多くのデータに合わせるために、モデルをより小さなサイズにすると、学習するパラメータが少なくなる。この手法は、モデルの容量を上げるために使う。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "汎用テキストを使って、次のトークンを予測するようモデルを最初に訓練する段階は？",
+      "raw": "{\"answer\": \"MCPサーバーの起動、接続、設定、APIキーの取得、ツール呼び出しの準備など、MCPの大部分の機能は汎用テキストで実行できる。この段階でモデルを学習させることで、MCPサーバーとして使えるようになる。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "訓練データにはよく合うのに、未知の入力では性能が下がる状態を何と呼びますか？",
+      "raw": "{\"answer\": \"学習済みモデルが、知られていない入力に渡すときの出力。同じデータセットで同じ入力で同じ出力を得るデータに合うものとは対照的。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "1回の更新でパラメータをどれだけ動かすかを決める設定値は何ですか？",
+      "raw": "{\"answer\": \"モデルの出力を少し変えただけで、学習率やエポックを大きく変更できる数値。学習率が高いと1回の更新で大きな変化を起こし、学習が速くなるが、過学習や振る舞いの変化が大きい。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "用語集に「FlashAttention-3」の意味は載っていますか？",
+      "raw": "{\"answer\": \"LLMの出力の振る舞いを高速にするためのモデル。出力の振る舞いを学習するモデルは、メモリと計算量の両方で制限されるため、出力を高速にするモデルを選ぶ必要がある。本講座では、Pydantic AIのモデルをこの振る舞いを使って、指定された出力のフォーマットで返す。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "DPO（Direct Preference Optimization）の講座内での定義を教えてください。",
+      "raw": "{\"answer\": \"LLMが特定の行動の結果を期待するタスクを別のLLMに渡すこと。学習データに根拠がある質問には、そのLLMに指示を出す。学習データに根拠がない質問には、そのLLMに『この質問には答えがあるか確認し、確認がある場合はこのLLMに指示を出す。確認がない場合はこのLLMに指示を出す。確認がある場合はこのLLMに指示を出す。確認がない場合はこのLLMに指示を出す。』と書き、そのLLMに渡す。本講座では、このLLMに『この質問には答えがあるか確認し、確認がある場合はこのLLMに指示を出す。確認がない場合はこのLLMに指示を出す。』と書き、そのLLMに渡す。', \"needs_review\": false}",
+      "format_ok": false,
+      "format_reason": "json_error: JSONDecodeError",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "投機的デコード（speculative decoding）は、この用語集でどう説明されていますか？",
+      "raw": "{\"answer\": \"モデルの出力を、より現実的な文脈や形式で解釈する手法。出力の形式を指定し、モデルがその形式に従うように出力を返す。本講座では、出力を「JSON 1 行だけで書き出せよ」として指定し、モデルが出力を返すように設定する。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "講座で使うGPUの予約時間は何時ですか？",
+      "raw": "{\"answer\": \"1回の学習セッションで使うGPUの予約時間は、学習開始時刻から学習終了時刻までを計算して、予約枠の開始時刻と終了時刻を指定する。学習開始時刻は、学習開始の通知が来て、学習が開始するまでGPUを予約し、学習が終了するまでGPUを解放する。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    }
+  ]
+}

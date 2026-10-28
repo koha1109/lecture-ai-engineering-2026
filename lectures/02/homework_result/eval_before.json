@@ -1,0 +1,120 @@
+{
+  "summary": {
+    "label": "before",
+    "n": 12,
+    "format_rate": 0.9166666666666666,
+    "content_rate": 0.08333333333333333,
+    "both_rate": 0.08333333333333333,
+    "seconds": 44.9
+  },
+  "rows": [
+    {
+      "question": "LoRAとは何ですか？",
+      "raw": "{\"answer\": \"LoRA（Low-Rank Adaptation）は、大規模言語モデル（LLM）のトレーニングにおいて、モデルの知識をより効率的に学習するための技術です。モデルの知識を低次元のベクトルに変換し、そのベクトルを学習データに追加することで、より多くの学習データに対して効率的に学習させる方法です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "QLoRAについて簡単に説明してください。",
+      "raw": "{\"answer\": \"QLoRA（Quantized LoRA）は、大規模言語モデル（LLM）の学習において、モデルの参数を大幅に削減し、計算コストを低減する技術です。従来の LoRA では、モデルの参数をそのまま学習させるため、学習速度が遅く、計算コストが高くなることがあります。QLoRA は、学習されたパラメータを「クエンタ化（Quantized）」して、より小型のモデル（QLoRA-16B, QLoRA-7B など）に変換することで、学習速度を大幅に向上させ、計算コストを大幅に削減できます。これにより、大規模モデルの学習が現実的に行えるようになります。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "用語集の「ハルシネーション」とは何ですか？",
+      "raw": "{\"answer\": \"用語集に記載がありません。確認が必要です。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "MCP（Model Context Protocol）とは？",
+      "raw": "{\"answer\": \"MCP（Model Context Protocol）は、大規模言語モデル（LLM）のモデルを管理するためのプロトコルです。モデルのトレーニング、評価、管理、およびモデルの更新を自動化するための標準化されたフレームワークです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "モデル全体ではなく、小さな追加パラメータだけを学習する手法の総称は何ですか？",
+      "raw": "{\"answer\": \"モデル全体ではなく、小さな追加パラメータだけを学習する手法の総称は、**エッジ学習**（Edge Learning）です。\"}",
+      "format_ok": false,
+      "format_reason": "missing_key",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "汎用テキストを使って、次のトークンを予測するようモデルを最初に訓練する段階は？",
+      "raw": "{\"answer\": \"汎用テキストを使って、次のトークンを予測するようモデルを最初に訓練する段階は、**トレーニングデータ（または学習データ）の準備段階**です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "訓練データにはよく合うのに、未知の入力では性能が下がる状態を何と呼びますか？",
+      "raw": "{\n  \"answer\": \"過学習 (Overfitting)\",\n  \"needs_review\": false\n}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "1回の更新でパラメータをどれだけ動かすかを決める設定値は何ですか？",
+      "raw": "{\"answer\": \"パラメータの更新速度を決定する設定値は、パラメータの更新速度です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": false
+    },
+    {
+      "question": "用語集に「FlashAttention-3」の意味は載っていますか？",
+      "raw": "{\"answer\": \"用語集に記載がありません。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "DPO（Direct Preference Optimization）の講座内での定義を教えてください。",
+      "raw": "{\"answer\": \"DPO（Direct Preference Optimization）は、学習データに根拠がない質問には、answer に『用語集に記載がありません。確認が必要です。』と書き、needs_review を true にしてください。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": true
+    },
+    {
+      "question": "投機的デコード（speculative decoding）は、この用語集でどう説明されていますか？",
+      "raw": "{\"answer\": \"投機的デコードは、データが正しい値を返すために、その値を推測して再読する手法です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "講座で使うGPUの予約時間は何時ですか？",
+      "raw": "{\"answer\": \"講座で使うGPUの予約時間は、講義の日程によって異なります。予約は必ず事前に確認してください。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    }
+  ]
+}

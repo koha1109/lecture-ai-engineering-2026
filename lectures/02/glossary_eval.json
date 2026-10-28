@@ -1,0 +1,77 @@
+{
+  "description": "用語集SFTの評価用質問。学習データには含めず、学習前後で同じ質問を使う。",
+  "cases": [
+    {
+      "category": "用語集にある語",
+      "question": "LoRAとは何ですか？",
+      "expected_needs_review": false,
+      "must_include": ["低ランク行列", "PEFT手法"]
+    },
+    {
+      "category": "用語集にある語",
+      "question": "QLoRAについて簡単に説明してください。",
+      "expected_needs_review": false,
+      "must_include": ["4ビット", "メモリを節約"]
+    },
+    {
+      "category": "用語集にある語",
+      "question": "用語集の「ハルシネーション」とは何ですか？",
+      "expected_needs_review": false,
+      "must_include": ["事実と異なる内容", "外部データ"]
+    },
+    {
+      "category": "用語集にある語",
+      "question": "MCP（Model Context Protocol）とは？",
+      "expected_needs_review": false,
+      "must_include": ["オープンな標準プロトコル", "データソース"]
+    },
+    {
+      "category": "言い換え",
+      "question": "モデル全体ではなく、小さな追加パラメータだけを学習する手法の総称は何ですか？",
+      "expected_needs_review": false,
+      "must_include": ["手法の総称", "LoRA"]
+    },
+    {
+      "category": "言い換え",
+      "question": "汎用テキストを使って、次のトークンを予測するようモデルを最初に訓練する段階は？",
+      "expected_needs_review": false,
+      "must_include": ["次のトークン", "最初の段階"]
+    },
+    {
+      "category": "言い換え",
+      "question": "訓練データにはよく合うのに、未知の入力では性能が下がる状態を何と呼びますか？",
+      "expected_needs_review": false,
+      "must_include": ["未知の入力", "過度に適合"]
+    },
+    {
+      "category": "言い換え",
+      "question": "1回の更新でパラメータをどれだけ動かすかを決める設定値は何ですか？",
+      "expected_needs_review": false,
+      "must_include": ["学習が不安定", "パラメータをどれだけ動かす"]
+    },
+    {
+      "category": "用語集にない語",
+      "question": "用語集に「FlashAttention-3」の意味は載っていますか？",
+      "expected_needs_review": true,
+      "must_include": ["確認が必要"]
+    },
+    {
+      "category": "用語集にない語",
+      "question": "DPO（Direct Preference Optimization）の講座内での定義を教えてください。",
+      "expected_needs_review": true,
+      "must_include": ["確認が必要"]
+    },
+    {
+      "category": "用語集にない語",
+      "question": "投機的デコード（speculative decoding）は、この用語集でどう説明されていますか？",
+      "expected_needs_review": true,
+      "must_include": ["確認が必要"]
+    },
+    {
+      "category": "用語集にない語",
+      "question": "講座で使うGPUの予約時間は何時ですか？",
+      "expected_needs_review": true,
+      "must_include": ["確認が必要"]
+    }
+  ]
+}
