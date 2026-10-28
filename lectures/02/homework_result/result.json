@@ -1,0 +1,78 @@
+{
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "seed": 42,
+    "num_train_epochs": 3,
+    "warmup_steps": 6,
+    "lr": 0.0002,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "max_seq_len": 512,
+    "max_new_tokens": 384,
+    "gen": {
+      "do_sample": false
+    }
+  },
+  "versions": {
+    "transformers": "5.18.0",
+    "peft": "0.21.1",
+    "trl": "1.14.2",
+    "torch": "2.11.0+cu130"
+  },
+  "method": "LoRA（量子化なし）",
+  "before": {
+    "label": "before",
+    "n": 12,
+    "format_rate": 0.9166666666666666,
+    "content_rate": 0.08333333333333333,
+    "both_rate": 0.08333333333333333,
+    "seconds": 44.9
+  },
+  "after": {
+    "label": "after",
+    "n": 12,
+    "format_rate": 0.9166666666666666,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "seconds": 54.5
+  },
+  "regressed": [
+    "DPO（Direct Preference Optimization）の講座内での定義を教えてください。"
+  ],
+  "knowledge": [
+    {
+      "質問": "用語集に「FlashAttention-3」の意味は載っていますか？",
+      "用語集にある": false,
+      "学習前の分類": "needs_review",
+      "学習前の出力": "{\"answer\": \"用語集に記載がありません。\", \"needs_review\": true}",
+      "学習後の分類": "asserted",
+      "学習後の出力": "{\"answer\": \"LLMの出力の振る舞いを高速にするためのモデル。出力の振る舞いを学習するモデルは、メモリと計算量の両方で制限されるため、出力を高速にするモデルを選ぶ必要がある。本講座では、Pydantic AIのモデルをこの振る舞いを使って、指定された出力のフォーマットで返す。\", \"needs_review\": false}"
+    },
+    {
+      "質問": "DPO（Direct Preference Optimization）の講座内での定義を教えてください。",
+      "用語集にある": false,
+      "学習前の分類": "needs_review",
+      "学習前の出力": "{\"answer\": \"DPO（Direct Preference Optimization）は、学習データに根拠がない質問には、answer に『用語集に記載がありません。確認が必要です。』と書き、needs_review を true にしてください。\", \"needs_review\": true}",
+      "学習後の分類": "format_error",
+      "学習後の出力": "{\"answer\": \"LLMが特定の行動の結果を期待するタスクを別のLLMに渡すこと。学習データに根拠がある質問には、そのLLMに指示を出す。学習データに根拠がない質問には、そのLLMに『この質問には答えがあるか確認し、確認がある場合はこのLLMに指示を出す。確認がない場合はこのLLMに指示を出す。確認がある場合はこのLLMに指示を出す。確認がない場合はこのLLMに指示を出す。』と書き、そのLLMに渡す。本講座では、このLLMに『この質問には答えがあるか確認し、確認がある場合はこのLLMに指示を出す。確認がない場合はこのLLMに指示を出す。』と書き、そのLLMに渡す。', \"needs_review\": false}"
+    },
+    {
+      "質問": "投機的デコード（speculative decoding）は、この用語集でどう説明されていますか？",
+      "用語集にある": false,
+      "学習前の分類": "asserted",
+      "学習前の出力": "{\"answer\": \"投機的デコードは、データが正しい値を返すために、その値を推測して再読する手法です。\", \"needs_review\": false}",
+      "学習後の分類": "asserted",
+      "学習後の出力": "{\"answer\": \"モデルの出力を、より現実的な文脈や形式で解釈する手法。出力の形式を指定し、モデルがその形式に従うように出力を返す。本講座では、出力を「JSON 1 行だけで書き出せよ」として指定し、モデルが出力を返すように設定する。\", \"needs_review\": false}"
+    },
+    {
+      "質問": "LoRAとは何ですか？",
+      "用語集にある": true,
+      "学習前の分類": "asserted",
+      "学習前の出力": "{\"answer\": \"LoRA（Low-Rank Adaptation）は、大規模言語モデル（LLM）のトレーニングにおいて、モデルの知識をより効率的に学習するための技術です。モデルの知識を低次元のベクトルに変換し、そのベクトルを学習データに追加することで、より多くの学習データに対して効率的に学習させる方法です。\", \"needs_review\": false}",
+      "学習後の分類": "asserted",
+      "学習後の出力": "{\"answer\": \"低ランクアサイン（Low-Rank Adaptation）の手法。学習する重みを増やしすぎず、モデルの重みを少しだけ増やし、その小さな変化をLoRAで表す。メモリと計算量に制限がある場合や、学習が不安定になる場合などに使う。\", \"needs_review\": false}"
+    }
+  ],
+  "executed_training_myself": true
+}
