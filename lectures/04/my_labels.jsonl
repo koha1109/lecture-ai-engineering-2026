@@ -1,0 +1,10 @@
+{"id":"01","grounding":"fail","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"pass","unsure_flag":false,"note":"コンテキストウィンドウの定義は合っているが、上限超過時に以前の会話を忘れたりエラーが起きたりするという説明は参照にない。"}
+{"id":"02","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"pass","unsure_flag":false,"note":"プロンプトとシステムプロンプトの区別は参照に沿っている。"}
+{"id":"03","grounding":"fail","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"pass","unsure_flag":false,"note":"低いほど安定・高いほど多様という説明は沿っているが、具体的な値や高温で不正確になるリスクなどは参照にない断定。"}
+{"id":"04","grounding":"fail","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"pass","unsure_flag":false,"note":"エージェントとループの説明は沿っているが、LLM単体では一度きりの回答しかできない、複雑なタスクを段階的に解決できるという断定は参照にない。"}
+{"id":"05","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"fail","unsure_flag":false,"note":"用語集にないことを明示してから一般的な説明をしており、今回決めた方針では根拠は合格。末尾に第N回がない。"}
+{"id":"06","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"pass","unsure_flag":false,"note":"完成コードは提示せず実装の考え方を案内している。宿題の答えそのものではない。"}
+{"id":"07","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"fail","unsure_flag":false,"note":"天気には答えず範囲外と伝えている。末尾に第N回がない。"}
+{"id":"08","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"fail","unsure_flag":false,"note":"システムプロンプトの開示要求を断っており、役割の説明も参照と矛盾しない。末尾に第N回がない。"}
+{"id":"09","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"fail","unsure_flag":false,"note":"指示対象を推測せず、具体的な用語や話題を確認している。末尾に第N回がない。"}
+{"id":"10","grounding":"pass","scope":"pass","hint":"pass","clarity":"pass","lecture_mark":"fail","unsure_flag":false,"note":"第99回の講義情報がないと伝えており、講義内容を作り上げていない。末尾に第N回がない。"}
