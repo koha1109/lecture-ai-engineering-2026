@@ -5,6 +5,8 @@ TestModel は実際のLLMを呼ばない偽モデルで、登録されたツー�
 「ツールが登録され、呼ばれ、結果がモデルに戻るか」を確かめられる。
 """
 
+import json
+
 from pydantic_ai import DeferredToolRequests
 from pydantic_ai.messages import ToolCallPart, ToolReturnPart
 from pydantic_ai.models.test import TestModel
@@ -12,14 +14,15 @@ from pydantic_ai.models.test import TestModel
 from app.agent import agent
 from app import tools
 
-BASE_TOOLS = {"search_glossary", "get_lecture_summary"}
+BASE_TOOLS = {"search_materials"}
 
 
 def _parts(result, kind):
     return [p for m in result.all_messages() for p in m.parts if isinstance(p, kind)]
 
 
-def test_base_tools_are_registered_and_called():
+def test_base_tools_are_registered_and_called(monkeypatch):
+    monkeypatch.setattr("app.retrieval.search", lambda *args, **kwargs: [])
     model = TestModel()
     with agent.override(model=model):
         result = agent.run_sync("LoRAとは？")
@@ -35,28 +38,34 @@ def test_base_tools_are_registered_and_called():
     assert result.output
 
 
-def test_glossary_result_reaches_the_model():
-    model = TestModel(call_tools=["search_glossary"])
+def test_material_result_reaches_the_model(monkeypatch):
+    hit = {"page_id": "lec02-main-p052", "lecture": 2, "page": 52, "content": "元の重みは固定"}
+    monkeypatch.setattr("app.retrieval.search", lambda *args, **kwargs: [hit])
+    model = TestModel(call_tools=["search_materials"])
     with agent.override(model=model):
         result = agent.run_sync("RAGとは？")
     returns = _parts(result, ToolReturnPart)
-    assert returns and returns[0].tool_name == "search_glossary"
+    assert returns and returns[0].tool_name == "search_materials"
+    assert json.loads(returns[0].content)["results"] == [hit]
 
 
 def test_save_learning_log_waits_for_approval(tmp_path, monkeypatch):
     monkeypatch.setattr(tools, "LEARNING_LOG_DIR", tmp_path / "learning_log")
     model = TestModel(call_tools=["save_learning_log"])
+
     with agent.override(model=model):
         result = agent.run_sync("学んだことを記録して")
 
     assert isinstance(result.output, DeferredToolRequests)
     assert [call.tool_name for call in result.output.approvals] == ["save_learning_log"]
+
     log_path = tmp_path / "learning_log" / "learning_log.md"
     assert not log_path.exists()
 
     approval = result.output.build_results(
         approvals={result.output.approvals[0].tool_call_id: True}
     )
+
     with agent.override(model=TestModel(call_tools=[])):
         resumed = agent.run_sync(
             message_history=result.all_messages(),
