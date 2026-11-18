@@ -35,11 +35,63 @@ def test_built_index_can_be_searched(materials, monkeypatch):
     assert result["pages"] == 2  # 第5回の資料は検索対象に含めない
     assert all("章" in text and "ページ" in text for text in texts)
     monkeypatch.setattr(retrieval, "RAG_DB", database)
+    monkeypatch.setattr(retrieval, "RAG_SOURCE", source)
     monkeypatch.setattr(retrieval, "embed_text", lambda *_: [1, 0])
     hits = retrieval.search("質問")
     assert [h["page_id"] for h in hits] == ["lec01-main-p001", "lec02-main-p001"]
     assert hits[0]["content"] == "本文1"
     assert hits[0]["distance"] == pytest.approx(0)
+
+
+def test_search_includes_adjacent_pages_without_duplicates_or_crossing_documents(tmp_path, monkeypatch):
+    source = tmp_path / "lectures.json"
+    database = tmp_path / "index.sqlite3"
+    documents = [
+        {
+            "id": "lec01-main",
+            "title": "講義1",
+            "content": [{
+                "section": "章",
+                "content": [
+                    {"id": f"lec01-main-p00{page}", "title": f"ページ{page}",
+                     "page": page, "content": f"本文{page}"}
+                    for page in range(1, 4)
+                ],
+            }],
+        },
+        {
+            "id": "lec02-main",
+            "title": "講義2",
+            "content": [{
+                "section": "章",
+                "content": [
+                    {"id": "lec02-main-p001", "title": "別資料のページ",
+                     "page": 1, "content": "別資料の本文"}
+                ],
+            }],
+        },
+    ]
+    source.write_text(json.dumps(documents, ensure_ascii=False), encoding="utf-8")
+    build_index(source, database, embedder=lambda *_: [1, 0])
+    monkeypatch.setattr(retrieval, "RAG_DB", database)
+    monkeypatch.setattr(retrieval, "RAG_SOURCE", source)
+    monkeypatch.setattr(retrieval, "RAG_TOP_K", 2)
+    monkeypatch.setattr(retrieval, "embed_text", lambda *_: [1, 0])
+
+    results = retrieval.search("質問")
+
+    assert [result["page_id"] for result in results] == [
+        "lec01-main-p001",
+        "lec01-main-p002",
+        "lec01-main-p003",
+    ]
+    assert [result["retrieval_relation"] for result in results] == [
+        "vector_match",
+        "vector_match",
+        "adjacent",
+    ]
+    assert results[2]["adjacent_to"] == "lec01-main-p002"
+    assert results[2]["content"] == "本文3"
 
 
 def test_existing_index_survives_failed_rebuild(materials):
