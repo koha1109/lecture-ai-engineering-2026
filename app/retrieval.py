@@ -125,7 +125,7 @@ def open_index(path: Path):
 
 
 def search(query: str) -> list[dict]:
-    """質問を埋め込み、近いページを最大RAG_TOP_K件返す。"""
+    """近いページを検索し、同じ資料内の前後ページも重複を除いて返す。"""
     if not isinstance(query, str) or not query.strip():
         raise ValueError("検索語が空です。")
     with open_index(RAG_DB) as db:
@@ -135,7 +135,37 @@ def search(query: str) -> list[dict]:
                    vec_distance_cosine(embedding, ?) AS distance
             FROM chunks ORDER BY distance, page_id LIMIT ?
         """, (sqlite_vec.serialize_float32(vector), RAG_TOP_K))
-        return [dict(row) for row in rows]
+        matches = [
+            {**dict(row), "retrieval_relation": "vector_match"}
+            for row in rows
+        ]
+
+    pages_by_document = defaultdict(list)
+    positions = {}
+    for page in load_pages(RAG_SOURCE):
+        positions[page["page_id"]] = len(pages_by_document[page["document_id"]])
+        pages_by_document[page["document_id"]].append(page)
+
+    results = list(matches)
+    included_ids = {match["page_id"] for match in matches}
+    for match in matches:
+        pages = pages_by_document.get(match["document_id"], [])
+        position = positions.get(match["page_id"])
+        if position is None:
+            continue
+        for neighbor_position in (position - 1, position + 1):
+            if not 0 <= neighbor_position < len(pages):
+                continue
+            neighbor = pages[neighbor_position]
+            if neighbor["page_id"] in included_ids:
+                continue
+            included_ids.add(neighbor["page_id"])
+            results.append({
+                **neighbor,
+                "retrieval_relation": "adjacent",
+                "adjacent_to": match["page_id"],
+            })
+    return results
 
 
 def search_graph(query: str) -> dict:
@@ -204,6 +234,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     for i, result in enumerate(search(args.query), 1):
         print(f"\n{'=' * 60}\n検索結果 {i}\n{'=' * 60}")
+        if result["retrieval_relation"] == "adjacent":
+            print(f"取得区分: 前後ページ（{result['adjacent_to']}に隣接）")
+        else:
+            print("取得区分: ベクトル検索")
         print(f"講義: {result['document_title']}")
         print(f"章: {result['section']}")
         print(f"タイトル: {result['title']}")
